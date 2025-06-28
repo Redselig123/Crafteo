@@ -46,12 +46,13 @@ public class Usuario {
 	public void cargarInventario(String nombre) {
 		inventario.cargarInventarioInicial(nombre);
 	}
+
 	public void crearIntermedio(String nombreBasico) {
 		Item item = inventario.fabricarIntermedio(nombreBasico);
-		if(item != null) {
+		if (item != null) {
+			System.out.println("Intermedio creado: " + item.getNombre() +": "+ item.getCantidad());
 			historial.registrar(item.getNombre() + ":" + item.getCantidad());
-		}
-		else {
+		} else {
 			System.out.println("No se pudo crear intermedio desde " + nombreBasico);
 		}
 	}

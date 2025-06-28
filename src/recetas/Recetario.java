@@ -15,13 +15,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 public class Recetario {
+	private List<Receta> recetas;
 	private static final Set<String> BASICOS_VALIDOS = Set.of("Harina", "Carne", "Lechuga", "Tomate", "Bacon", "Queso");
 
 	private boolean esBasicoValido(String nombreItem) {
 		return BASICOS_VALIDOS.contains(nombreItem);
 	}
-
-	private List<Receta> recetas;
 
 	public Recetario() {
 		this.recetas = new ArrayList<>();
@@ -55,7 +54,7 @@ public class Recetario {
 
 		if (receta == null) {
 			if (!esBasicoValido(nombreItem)) {
-				System.out.println("⚠️ Advertencia: " + nombreItem + " no tiene receta y no es un básico conocido.");
+				System.out.println("Advertencia: " + nombreItem + " no tiene receta y no es un básico conocido.");
 			}
 
 			acumulador.put(nombreItem, acumulador.getOrDefault(nombreItem, 0) + 1);
@@ -76,26 +75,28 @@ public class Recetario {
 		Map<String, Integer> resultado = new HashMap<>();
 		descomponerIngredientes(nombreFinal, resultado);
 		return resultado;
-	} 
+	}
 
 	public void cargarRecetas(String rutaArchivo) {
 		try {
 			File archivo = new File(rutaArchivo);
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();//objeto que sabe parcear XMLs
-			DocumentBuilder db = dbf.newDocumentBuilder();//este lee va a leer el archivo y convertirlo a datos
-			Document doc = db.parse(archivo);//aca lo lee y lo convierte a un arbol de nodos XML DOM
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();// objeto que sabe parcear XMLs
+			DocumentBuilder db = dbf.newDocumentBuilder();// este lee va a leer el archivo y convertirlo a datos
+			Document doc = db.parse(archivo);// aca lo lee y lo convierte a un arbol de nodos XML DOM
 
 			doc.getDocumentElement().normalize();
 
-			NodeList recetasXML = doc.getElementsByTagName("receta");//busca las etiquetas "receta" y devuelve un NodeList de todas las encontradas
+			NodeList recetasXML = doc.getElementsByTagName("receta");// busca las etiquetas "receta" y devuelve un
+																		// NodeList de todas las encontradas
 
 			for (int i = 0; i < recetasXML.getLength(); i++) {
-				Element recetaElem = (Element) recetasXML.item(i);//obtiene la receta actual del for
-				String nombreReceta = recetaElem.getAttribute("nombre");//lee su nombre
+				Element recetaElem = (Element) recetasXML.item(i);// obtiene la receta actual del for
+				String nombreReceta = recetaElem.getAttribute("nombre");// lee su nombre
 
-				Receta receta = new Receta(nombreReceta);//crea la receta
+				Receta receta = new Receta(nombreReceta);// crea la receta
 
-				NodeList ingredientes = recetaElem.getElementsByTagName("ingrediente");//empieza a leer los ingredientes
+				NodeList ingredientes = recetaElem.getElementsByTagName("ingrediente");// empieza a leer los
+																						// ingredientes
 				for (int j = 0; j < ingredientes.getLength(); j++) {
 					Element ingredienteElem = (Element) ingredientes.item(j);
 					String nombreIngrediente = ingredienteElem.getAttribute("nombre");
