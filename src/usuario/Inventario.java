@@ -106,6 +106,15 @@ public class Inventario {
 		return null;
 	}
 
+	public int getCantidad(String nombreItem) {
+		for (Item item : items) {
+			if (item.getNombre().equalsIgnoreCase(nombreItem)) {
+				return item.getCantidad();
+			}
+		}
+		return 0;
+	}
+
 	private Item crearItemPorNombre(String nombre, int cantidad) {
 		switch (nombre) {
 		case "Harina":

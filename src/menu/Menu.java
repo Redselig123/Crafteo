@@ -44,7 +44,7 @@ public class Menu {
 	private void buclePrincipal() {
 		int opcion = -1;
 
-		while (opcion != 8) {
+		while (opcion != 10) {
 			mostrarMenu();
 			try {
 				opcion = Integer.parseInt(scanner.nextLine());
@@ -66,8 +66,12 @@ public class Menu {
 		System.out.println("5. Ver qué puedo craftear");
 		System.out.println("6. Craftear objeto intermedio");
 		System.out.println("7. Craftear objeto completo");
-		System.out.println("8. Salir");
+		System.out.println("8. Ver ingredientes faltantes (primer nivel)");
+		System.out.println("9. Ver qué me falta para craftear un objeto desde cero");
+		System.out.println("10. Salir");
+
 		System.out.print("Opción: ");
+
 	}
 
 	public void verIngredientesBasicos() {
@@ -112,7 +116,18 @@ public class Menu {
 			// craftearCompleto();
 			break;
 		case 8:
+			System.out.print("Ingrese el nombre del objeto a craftear: ");
+			String nombre = scanner.nextLine();
+			usuario.mostrarFaltantesParaCraftear(nombre, recetario);
 			break;
+		case 9:
+			System.out.print("Ingrese el nombre del objeto: ");
+		    String nombre2 = scanner.nextLine();
+		    usuario.mostrarFaltantesdesdeCero(nombre2, recetario);
+			break;
+		case 10:
+		    break;
+
 		default:
 			System.out.println("Opción inválida.");
 		}

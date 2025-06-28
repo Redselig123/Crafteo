@@ -1,6 +1,11 @@
 package usuario;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import interfaces.Item;
+import recetas.Receta;
+import recetas.Recetario;
 
 public class Usuario {
 	private String nombre;
@@ -50,10 +55,72 @@ public class Usuario {
 	public void crearIntermedio(String nombreBasico) {
 		Item item = inventario.fabricarIntermedio(nombreBasico);
 		if (item != null) {
-			System.out.println("Intermedio creado: " + item.getNombre() +": "+ item.getCantidad());
+			System.out.println("Intermedio creado: " + item.getNombre() + ": " + item.getCantidad());
 			historial.registrar(item.getNombre() + ":" + item.getCantidad());
 		} else {
 			System.out.println("No se pudo crear intermedio desde " + nombreBasico);
+		}
+	}
+
+	public void mostrarFaltantesParaCraftear(String nombreItem, Recetario recetario) {
+		Receta receta = recetario.getReceta(nombreItem);
+
+		if (receta == null) {
+			System.out.println("❌ No se encontró una receta para: " + nombreItem);
+			return;
+		}
+
+		Map<String, Integer> faltantes = new HashMap<>();
+
+		for (Map.Entry<String, Integer> entry : receta.getIngredientes().entrySet()) {
+			String nombreIngrediente = entry.getKey();
+			int cantidadNecesaria = entry.getValue();
+
+			Item itemEnInventario = inventario.buscarPorNombre(nombreIngrediente);
+
+			if (itemEnInventario == null) {
+				faltantes.put(nombreIngrediente, cantidadNecesaria);
+			} else {
+				int cantidadFaltante = cantidadNecesaria - itemEnInventario.getCantidad();
+				if (cantidadFaltante > 0) {
+					faltantes.put(nombreIngrediente, cantidadFaltante);
+				}
+			}
+		}
+
+		if (faltantes.isEmpty()) {
+			System.out.println("Tienes todos los ingredientes necesarios para fabricar " + nombreItem + ".");
+		} else {
+			System.out.println("Faltan los siguientes ingredientes para fabricar " + nombreItem + ":");
+			for (Map.Entry<String, Integer> entry : faltantes.entrySet()) {
+				System.out.println("- " + entry.getValue() + " x " + entry.getKey());
+			}
+		}
+	}
+
+	public void mostrarFaltantesdesdeCero(String nombreItem, Recetario recetario) {
+		Map<String, Integer> necesarios = recetario.getIngredientesBasicos(nombreItem);
+		Map<String, Integer> faltantes = new HashMap<>();
+
+		for (Map.Entry<String, Integer> entry : necesarios.entrySet()) {
+			String nombre = entry.getKey();
+			int necesariosCantidad = entry.getValue();
+			int enInventario = inventario.getCantidad(nombre);
+			if (enInventario < necesariosCantidad) {
+				faltantes.put(nombreItem, necesariosCantidad - enInventario);
+
+			}
+
+		}
+		if (faltantes.isEmpty()) {
+			System.out
+					.println("Tienes todos los ingredientes básicos necesarios para fabricar \"" + nombreItem + "\".");
+		} else {
+			System.out.println("❌ Te faltan los siguientes ingredientes básicos para fabricar \"" + nombreItem + "\":");
+			for (Map.Entry<String, Integer> entry : faltantes.entrySet()) {
+				System.out.println("- " + entry.getValue() + " x " + entry.getKey());
+
+			}
 		}
 	}
 
