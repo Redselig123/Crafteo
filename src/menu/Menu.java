@@ -66,6 +66,8 @@ public class Menu {
 				System.out.println("Por favor, ingrese un número válido.");
 			}
 		}
+		usuario.getHistorial().guardarComoXML("historial.xml");
+		System.out.println("inventario.XML generado");
 
 		System.out.println("¡Gracias por jugar!");
 	}
