@@ -4,5 +4,5 @@ public interface Item {
     String getNombre();
     int getCantidad();
     void sumarCantidad(int cantidad);
-    void restarCantidad(int cantidad);
+    boolean restarCantidad(int cantidad);
 }

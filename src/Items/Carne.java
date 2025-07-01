@@ -15,7 +15,8 @@ public class Carne extends ItemComun implements Basico {
 
 	@Override
 	public Item crearIntermedio() {
-		restarCantidad(1);
-		return new CarneCocida(1);
+		if(restarCantidad(1))
+			return new CarneCocida(1);
+		return null;
 	}
 }

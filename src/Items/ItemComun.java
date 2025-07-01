@@ -33,11 +33,13 @@ public abstract class ItemComun implements Item {
 	}
 
 	@Override
-	public void restarCantidad(int cantidad) {
+	public boolean restarCantidad(int cantidad) {
 		if (this.cantidad - cantidad < 0) {
 			System.out.println("No hay suficiente cantidad de " + nombre + " para restar " + cantidad);
+			return false;
 		} else {
 			this.cantidad -= cantidad;
+			return true;
 		}
 	}
 }

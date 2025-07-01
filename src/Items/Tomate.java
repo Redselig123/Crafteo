@@ -11,7 +11,8 @@ public class Tomate extends ItemComun implements Basico {
 
 	@Override
 	public Item crearIntermedio() {
-		restarCantidad(1);
-		return new TomateLavado(1);
+		if(restarCantidad(1))
+			return new TomateLavado(1);
+		return null;
 	}
 }

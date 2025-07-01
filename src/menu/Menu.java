@@ -148,7 +148,8 @@ public class Menu {
 			System.out.println("Opcion invalida.");
 		}
 	}
-	//podria mandar el metodo a llamar y no repetir codigo
+
+	// podria mandar el metodo a llamar y no repetir codigo
 	private void mostrarFaltantesPrimerNivel() {
 		System.out.print("Ingrese el nombre del objeto a craftear: ");
 		mostrarObjetos(itemsCompl);
