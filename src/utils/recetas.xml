@@ -29,7 +29,7 @@
     <receta nombre="Hamburguesa con Bacon">
         <ingrediente nombre="Pan" cantidad="2"/>
         <ingrediente nombre="Carne Cocida" cantidad="1"/>
-        <ingrediente nombre="Bacon Cocido" cantidad="1"/>
+        <ingrediente nombre="Bacon Cocido" cantidad="5"/>
     </receta>
 
     <receta nombre="Hamburguesa con Lechuga y Tomate">
@@ -47,6 +47,7 @@
     <receta nombre="Hamburguesa Triple">
         <ingrediente nombre="Pan" cantidad="3"/>
         <ingrediente nombre="Carne Cocida" cantidad="3"/>
+
     </receta>
 </recetario>
 

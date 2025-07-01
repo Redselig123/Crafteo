@@ -16,6 +16,7 @@ import org.w3c.dom.NodeList;
 import Items.Bacon;
 import Items.Carne;
 import Items.Harina;
+import Items.ItemCompletoFactory;
 import Items.Lechuga;
 import Items.Queso;
 import Items.Tomate;
@@ -118,6 +119,7 @@ public class Inventario {
 		}
 		return 0;
 	}
+
 	public Boolean mostrarFaltantesParaCraftear(String nombreItem, Recetario recetario) {
 		Receta receta = recetario.getReceta(nombreItem);
 
@@ -155,14 +157,28 @@ public class Inventario {
 			return false;
 		}
 	}
+
 	public Item fabricarCompleto(String nombre, Recetario recetario) {
-		if(mostrarFaltantesParaCraftear(nombre, recetario) == true) {
-			//Item itemCompleto = new 
-		}
-		return null;
-		
+	    if (mostrarFaltantesParaCraftear(nombre, recetario)) {
+	        Receta receta = recetario.getReceta(nombre);
+	        if (receta == null) return null;
+
+	        // Restar cantidades de ingredientes
+	        for (Map.Entry<String, Integer> entry : receta.getIngredientes().entrySet()) {
+	            String nombreIngrediente = entry.getKey();
+	            int cantidad = entry.getValue();
+	            Item item = buscarPorNombre(nombreIngrediente);
+	            if (item != null) {
+	                item.restarCantidad(cantidad);
+	            }
+	        }
+
+	        // Crear ítem completo con el factory
+	        return ItemCompletoFactory.crear(nombre);
+	    }
+
+	    return null;
 	}
-	
 
 	private Item crearItemPorNombre(String nombre, int cantidad) {
 		switch (nombre) {

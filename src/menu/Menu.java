@@ -148,7 +148,7 @@ public class Menu {
 			System.out.println("Opcion invalida.");
 		}
 	}
-
+	//podria mandar el metodo a llamar y no repetir codigo
 	private void mostrarFaltantesPrimerNivel() {
 		System.out.print("Ingrese el nombre del objeto a craftear: ");
 		mostrarObjetos(itemsCompl);
@@ -158,10 +158,11 @@ public class Menu {
 	}
 
 	private void mostrarFaltantes() {
-		mostrarObjetos(itemsCompl);
 		System.out.print("Ingrese el nombre del objeto: ");
+		mostrarObjetos(itemsCompl);
 		int num = Integer.parseInt(scanner.nextLine());
-		usuario.mostrarFaltantesdesdeCero(itemsCompl.get(num - 1), recetario);
+		if (num > 0 && num <= itemsCompl.size())
+			usuario.mostrarFaltantesdesdeCero(itemsCompl.get(num - 1), recetario);
 	}
 
 	private void mostrarObjetos(List<String> l) {
@@ -199,7 +200,7 @@ public class Menu {
 
 			if (opcion >= 1 && opcion <= itemsCompl.size()) {
 				String nombre = itemsCompl.get(opcion - 1);
-				usuario.fabricarCompleto(nombre, recetario.getReceta(nombre));
+				usuario.fabricarCompleto(nombre, recetario);
 			} else {
 				System.out.println("Opción inválida.");
 			}
