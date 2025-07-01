@@ -141,7 +141,7 @@ public class Menu {
 			mostrarFaltantesPrimerNivel();
 			break;
 		case 9:
-			mostrarFaltantes();
+			mostrarFaltantesDeSegundoNivel();
 			break;
 		case 10:
 			break;
@@ -160,7 +160,7 @@ public class Menu {
 			usuario.mostrarFaltantesParaCraftear(itemsCompl.get(num - 1), recetario);
 	}
 
-	private void mostrarFaltantes() {
+	private void mostrarFaltantesDeSegundoNivel() {
 		System.out.print("Ingrese el nombre del objeto: ");
 		mostrarObjetos(itemsCompl);
 		int num = Integer.parseInt(scanner.nextLine());

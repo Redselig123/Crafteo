@@ -18,12 +18,13 @@ import Items.Carne;
 import Items.Harina;
 import Items.ItemCompletoFactory;
 import Items.Lechuga;
-import Items.Queso;
+
 import Items.Tomate;
 import interfaces.Basico;
 import interfaces.Item;
 import recetas.Receta;
 import recetas.Recetario;
+import utils.ConstantesItems;
 
 public class Inventario {
 	private List<Item> items;
@@ -72,7 +73,7 @@ public class Inventario {
 
 			doc.getDocumentElement().normalize();
 
-			NodeList items = doc.getElementsByTagName("item");// busca las etiquetas "receta" y devuelve un
+			NodeList items = doc.getElementsByTagName("item");// busca las etiquetas "item" y devuelve un
 																// NodeList de todas las encontradas
 
 			for (int i = 0; i < items.getLength(); i++) {
@@ -101,7 +102,7 @@ public class Inventario {
 				Basico basico = (Basico) item;
 				Item intermedio = basico.crearIntermedio(cantidad); // Esto ya llama a restarCantidad internamente
 				if (intermedio != null) {
-					agregarItem(intermedio); // Agregamos el nuevo item intermedio
+					//agregarItem(intermedio); // Agregamos el nuevo item intermedio
 					return intermedio;
 				}
 				return null;
@@ -159,40 +160,39 @@ public class Inventario {
 	}
 
 	public Item fabricarCompleto(String nombre, Recetario recetario) {
-	    if (mostrarFaltantesParaCraftear(nombre, recetario)) {
-	        Receta receta = recetario.getReceta(nombre);
-	        if (receta == null) return null;
+		if (mostrarFaltantesParaCraftear(nombre, recetario)) {
+			Receta receta = recetario.getReceta(nombre);
+			if (receta == null)
+				return null;
 
-	        // Restar cantidades de ingredientes
-	        for (Map.Entry<String, Integer> entry : receta.getIngredientes().entrySet()) {
-	            String nombreIngrediente = entry.getKey();
-	            int cantidad = entry.getValue();
-	            Item item = buscarPorNombre(nombreIngrediente);
-	            if (item != null) {
-	                item.restarCantidad(cantidad);
-	            }
-	        }
+			// Restar cantidades de ingredientes
+			for (Map.Entry<String, Integer> entry : receta.getIngredientes().entrySet()) {
+				String nombreIngrediente = entry.getKey();
+				int cantidad = entry.getValue();
+				Item item = buscarPorNombre(nombreIngrediente);
+				if (item != null) {
+					item.restarCantidad(cantidad);
+				}
+			}
 
-	        // Crear ítem completo con el factory
-	        return ItemCompletoFactory.crear(nombre);
-	    }
+			// Crear ítem completo con el factory
+			return ItemCompletoFactory.crear(nombre);
+		}
 
-	    return null;
+		return null;
 	}
 
 	private Item crearItemPorNombre(String nombre, int cantidad) {
 		switch (nombre) {
-		case "Harina":
+		case ConstantesItems.HARINA:
 			return new Harina(cantidad);
-		case "Carne":
+		case ConstantesItems.CARNE:
 			return new Carne(cantidad);
-		case "Bacon":
+		case ConstantesItems.BACON:
 			return new Bacon(cantidad);
-		case "Queso":
-			return new Queso(cantidad);
-		case "Lechuga":
+		case ConstantesItems.LECHUGA:
 			return new Lechuga(cantidad);
-		case "Tomate":
+		case ConstantesItems.TOMATE:
 			return new Tomate(cantidad);
 		default:
 			return null;

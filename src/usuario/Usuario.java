@@ -57,7 +57,8 @@ public class Usuario {
 		Item item = inventario.fabricarIntermedio(nombreBasico, cantidad);
 		if (item != null) {
 			System.out.println("Intermedio creado: " + item.getNombre() + ": " + item.getCantidad());
-			historial.registrar(item.getNombre() + ":" + item.getCantidad());
+			this.agregarItem(item);
+			//historial.registrar(item.getNombre() + ":" + item.getCantidad());
 		} else {
 			System.out.println("No se pudo crear intermedio desde " + nombreBasico);
 		}
@@ -92,7 +93,8 @@ public class Usuario {
 		}
 		Item nuevoItem = ItemCompletoFactory.crear(nombreCompleto, 1);
 
-		agregarItem(nuevoItem);
+		//agregarItem(nuevoItem);
+		this.agregarItem(nuevoItem);
 		return nuevoItem;
 	}
 
