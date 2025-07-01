@@ -53,8 +53,8 @@ public class Usuario {
 		inventario.cargarInventarioInicial(nombre);
 	}
 
-	public void crearIntermedio(String nombreBasico) {
-		Item item = inventario.fabricarIntermedio(nombreBasico);
+	public void crearIntermedio(String nombreBasico, int cantidad) {
+		Item item = inventario.fabricarIntermedio(nombreBasico, cantidad);
 		if (item != null) {
 			System.out.println("Intermedio creado: " + item.getNombre() + ": " + item.getCantidad());
 			historial.registrar(item.getNombre() + ":" + item.getCantidad());

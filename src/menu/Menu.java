@@ -223,7 +223,9 @@ public class Menu {
 
 			if (opcion >= 1 && opcion <= itemsB.size()) {
 				String nombre = itemsB.get(opcion - 1);
-				usuario.crearIntermedio(nombre);
+				System.out.print("¿Cuántos querés crear?: ");
+				int cantidad = Integer.parseInt(scanner.nextLine());
+				usuario.crearIntermedio(nombre, cantidad);
 			} else {
 				System.out.println("Opción inválida.");
 			}

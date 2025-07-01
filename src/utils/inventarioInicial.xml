@@ -2,7 +2,6 @@
     <item nombre="Harina" cantidad="10"/>
     <item nombre="Carne" cantidad="10"/>
     <item nombre="Bacon" cantidad="10"/>
-    <item nombre="Queso" cantidad="10"/>
     <item nombre="Lechuga" cantidad="10"/>
     <item nombre="Tomate" cantidad="10"/>
 </inventario>

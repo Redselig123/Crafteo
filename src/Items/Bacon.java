@@ -11,9 +11,9 @@ public class Bacon extends ItemComun implements Basico{
 	}
 
 	@Override
-	public Item crearIntermedio() {
-		if(restarCantidad(1))
-			return new BaconCocido(1);
+	public Item crearIntermedio(int cantidad) {
+		if(restarCantidad(cantidad))
+			return new BaconCocido(cantidad);
 		return null;
 	}
 	

@@ -11,9 +11,9 @@ public class Lechuga extends ItemComun implements Basico {
 	}
 
 	@Override
-	public Item crearIntermedio() {
-		if(restarCantidad(1))
-			return new LechugaLavada(1);
+	public Item crearIntermedio(int cantidad) {
+		if(restarCantidad(cantidad))
+			return new LechugaLavada(cantidad);
 		return null;
 	}
 

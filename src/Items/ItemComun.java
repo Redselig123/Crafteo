@@ -5,9 +5,11 @@ import interfaces.Item;
 public abstract class ItemComun implements Item {
 	protected String nombre;
 	protected int cantidad;
+	protected int tiendoDeCrafteo;
 	protected int limiteMaximo = 20;
 
 	public ItemComun(String nombre, int cantidad) {
+		this.tiendoDeCrafteo = 1;
 		this.nombre = nombre;
 		this.cantidad = cantidad;
 	}

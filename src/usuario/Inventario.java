@@ -95,11 +95,11 @@ public class Inventario {
 		}
 	}
 
-	public Item fabricarIntermedio(String nombreItemBasico) {
+	public Item fabricarIntermedio(String nombreItemBasico, int cantidad) {
 		for (Item item : items) {
 			if (item.getNombre().equals(nombreItemBasico) && item instanceof Basico) {
 				Basico basico = (Basico) item;
-				Item intermedio = basico.crearIntermedio(); // Esto ya llama a restarCantidad internamente
+				Item intermedio = basico.crearIntermedio(cantidad); // Esto ya llama a restarCantidad internamente
 				if (intermedio != null) {
 					agregarItem(intermedio); // Agregamos el nuevo item intermedio
 					return intermedio;

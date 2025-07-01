@@ -11,9 +11,9 @@ public class Harina extends ItemComun implements Basico {
 	}
 
 	@Override
-	public Item crearIntermedio() {
-		if(restarCantidad(1))
-			return new Pan(1); // Ejemplo simple
+	public Item crearIntermedio(int cantidad) {
+		if(restarCantidad(cantidad))
+			return new Pan(cantidad); // Ejemplo simple
 		return null;
 	}
 }
