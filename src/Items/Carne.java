@@ -4,11 +4,13 @@ package Items;
 //import Ingredientes.IngredienteIntermedio;
 import interfaces.Basico;
 import interfaces.Item;
+import utils.ConstantesItems;
+
 
 public class Carne extends ItemComun implements Basico {
 
 	public Carne(int cantidad) {
-		super("Carne", cantidad);
+		super(ConstantesItems.CARNE, cantidad);
 	}
 
 	@Override

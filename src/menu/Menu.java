@@ -1,10 +1,15 @@
 package menu;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import interfaces.Item;
+import recetas.Receta;
 import recetas.Recetario;
+import usuario.Inventario;
 import usuario.Usuario;
+import utils.ConstantesItems;
 
 public class Menu {
 	private Usuario usuario;
@@ -13,6 +18,14 @@ public class Menu {
 
 	private String rutaRecetas;
 	private String rutaInventario;
+
+	final List<String> itemsCompl = List.of(ConstantesItems.HAMBURGUESA_SIMPLE, ConstantesItems.HAMBURGUESA_DOBLE,
+			ConstantesItems.HAMBURGUESA_TRIPLE, ConstantesItems.HAMBURGUESA_CON_BACON,
+			ConstantesItems.HAMBURGUESA_CON_LECHUGA_Y_TOMATE);
+	final List<String> itemsI = List.of(ConstantesItems.PAN, ConstantesItems.CARNE_COCIDA, ConstantesItems.BACON_COCIDO,
+			ConstantesItems.LECHUGA_LAVADA, ConstantesItems.TOMATE_LAVADO);
+	final List<String> itemsB = List.of(ConstantesItems.HARINA, ConstantesItems.CARNE, ConstantesItems.BACON,
+			ConstantesItems.LECHUGA, ConstantesItems.TOMATE);
 
 	public Menu(String rutaRecetas, String rutaInventario) {
 		this.rutaRecetas = rutaRecetas;
@@ -75,12 +88,28 @@ public class Menu {
 	}
 
 	public void verIngredientesBasicos() {
-		Map<String, Integer> basicos = recetario.getIngredientesBasicos("Hamburguesa Simple");
+		System.out.println("Selecciona el objeto a ver sus ingredientes:");
+		mostrarObjetos(itemsCompl);
+		System.out.println("Opcion: ");
+		try {
+			int opcion = Integer.parseInt(scanner.nextLine());
 
-		System.out.println("Ingredientes básicos necesarios para fabricar desde cero hamburguesa simple:");
-		for (Map.Entry<String, Integer> entry : basicos.entrySet()) {
-			System.out.println("- " + entry.getValue() + " x " + entry.getKey());
+			if (opcion >= 1 && opcion <= itemsCompl.size()) {
+				String nombre = itemsCompl.get(opcion - 1);
+				Map<String, Integer> ingredientesBasicos = recetario.getIngredientesBasicos(nombre);
+
+				System.out.println("Ingredientes básicos necesarios para fabricar \"" + nombre + "\":");
+				for (Map.Entry<String, Integer> entry : ingredientesBasicos.entrySet()) {
+					System.out.println("- " + entry.getValue() + " x " + entry.getKey());
+				}
+			} else {
+				System.out.println("Opción inválida.");
+			}
+
+		} catch (NumberFormatException e) {
+			System.out.println("Entrada inválida. Debe ser un número.");
 		}
+
 	}
 
 	private void manejarOpcion(int opcion) {
@@ -95,41 +124,144 @@ public class Menu {
 			recetario.mostrarRecetas();
 			break;
 		case 4:
-			System.out.print("Ingrese el nombre del objeto: ");
-			String nombreItem = scanner.nextLine();
-			Map<String, Integer> ingredientesBasicos = recetario.getIngredientesBasicos(nombreItem);
-
-			System.out.println("Ingredientes básicos necesarios para fabricar \"" + nombreItem + "\":");
-			for (Map.Entry<String, Integer> entry : ingredientesBasicos.entrySet()) {
-				System.out.println("- " + entry.getValue() + " x " + entry.getKey());
-			}
+			verIngredientesBasicos();
 			break;
 		case 5:
-			// verCrafteables();
+			verCuantosPuedoCraftear();
 			break;
 		case 6:
-			System.out.print("Ingrese el nombre del objeto basico: ");
-			String nombreBasico = scanner.nextLine();
-			usuario.crearIntermedio(nombreBasico);
+			creaftearIntermedio();
 			break;
 		case 7:
-			// craftearCompleto();
+			craftearCompleto();
 			break;
 		case 8:
-			System.out.print("Ingrese el nombre del objeto a craftear: ");
-			String nombre = scanner.nextLine();
-			usuario.mostrarFaltantesParaCraftear(nombre, recetario);
+			mostrarFaltantesPrimerNivel();
 			break;
 		case 9:
-			System.out.print("Ingrese el nombre del objeto: ");
-		    String nombre2 = scanner.nextLine();
-		    usuario.mostrarFaltantesdesdeCero(nombre2, recetario);
+			mostrarFaltantes();
 			break;
 		case 10:
-		    break;
+			break;
 
 		default:
-			System.out.println("Opción inválida.");
+			System.out.println("Opcion invalida.");
 		}
 	}
+
+	private void mostrarFaltantesPrimerNivel() {
+		System.out.print("Ingrese el nombre del objeto a craftear: ");
+		mostrarObjetos(itemsCompl);
+		int num = Integer.parseInt(scanner.nextLine());
+		if (num > 0 && num <= itemsCompl.size())
+			usuario.mostrarFaltantesParaCraftear(itemsCompl.get(num - 1), recetario);
+	}
+
+	private void mostrarFaltantes() {
+		mostrarObjetos(itemsCompl);
+		System.out.print("Ingrese el nombre del objeto: ");
+		int num = Integer.parseInt(scanner.nextLine());
+		usuario.mostrarFaltantesdesdeCero(itemsCompl.get(num - 1), recetario);
+	}
+
+	private void mostrarObjetos(List<String> l) {
+		for (int i = 0; i < l.size(); i++) {
+			System.out.printf("%d. %s%n", i + 1, l.get(i));
+		}
+	}
+
+	private void verCuantosPuedoCraftear() {
+		System.out.println("Selecciona el objeto Completo a ver cuantos puede craftear:");
+		mostrarObjetos(itemsCompl);
+		int num = Integer.parseInt(scanner.nextLine());
+		if (num > 0 && num <= itemsCompl.size()) {
+			Receta receta = recetario.getReceta(itemsCompl.get(num - 1));
+			int cant = cuantosPuedoCraftear(usuario, receta, recetario);
+
+			if (cant != Integer.MAX_VALUE) {
+				System.out.println("Se pueden craftear " + cant + " " + receta.getNombre());
+			} else {
+				System.out.println("no se puede craftear el objeto.");
+			}
+		} else {
+			System.out.println("opcion invalida.");
+		}
+
+	}
+
+	private void craftearCompleto() {
+		System.out.println("Selecciona el objeto Completo a craftear:");
+		mostrarObjetos(itemsCompl);
+
+		System.out.println("Opcion: ");
+		try {
+			int opcion = Integer.parseInt(scanner.nextLine());
+
+			if (opcion >= 1 && opcion <= itemsCompl.size()) {
+				String nombre = itemsCompl.get(opcion - 1);
+				usuario.fabricarCompleto(nombre, recetario.getReceta(nombre));
+			} else {
+				System.out.println("Opción inválida.");
+			}
+
+		} catch (NumberFormatException e) {
+			System.out.println("Entrada inválida. Debe ser un número.");
+		}
+	}
+
+	private void creaftearIntermedio() {
+		System.out.println("Selecciona el objeto intermedio a craftear:");
+		mostrarObjetos(itemsI);
+
+		System.out.println("Opcion: ");
+		try {
+			int opcion = Integer.parseInt(scanner.nextLine());
+
+			if (opcion >= 1 && opcion <= itemsB.size()) {
+				String nombre = itemsB.get(opcion - 1);
+				usuario.crearIntermedio(nombre);
+			} else {
+				System.out.println("Opción inválida.");
+			}
+
+		} catch (NumberFormatException e) {
+			System.out.println("Entrada inválida. Debe ser un número.");
+		}
+
+	}
+
+	public static int cuantosPuedoCraftear(Usuario user, Receta receta, Recetario recetario) {
+		return calcularCantidadCrafteable(user.getInventario(), receta, recetario);
+	}
+
+	private static int calcularCantidadCrafteable(Inventario inventario, Receta receta, Recetario recetario) {
+		int maxCrafteos = Integer.MAX_VALUE;// cambiar por otra macro
+
+		for (Map.Entry<String, Integer> entrada : receta.getIngredientes().entrySet()) {
+			String nombreIngrediente = entrada.getKey();
+			int cantidadNecesaria = entrada.getValue();
+
+			Item itemInventario = inventario.buscarPorNombre(nombreIngrediente);
+
+			if (itemInventario != null && itemInventario.getCantidad() >= cantidadNecesaria) {
+				// ingrediente basico disponible en inventario
+				int crafteosPosibles = itemInventario.getCantidad() / cantidadNecesaria;
+				maxCrafteos = Math.min(maxCrafteos, crafteosPosibles);
+			} else {
+				// ver si es un ingrediente crafteable
+				Receta subReceta = recetario.getReceta(nombreIngrediente);
+
+				if (subReceta != null) {
+					// calcular cuantas veces puedo craftear este ingrediente
+					int crafteosIntermedio = calcularCantidadCrafteable(inventario, subReceta, recetario);
+					int crafteosUsandoIntermedio = crafteosIntermedio / cantidadNecesaria;
+					maxCrafteos = Math.min(maxCrafteos, crafteosUsandoIntermedio);
+				} else {
+					return 0;
+				}
+			}
+		}
+		return maxCrafteos == Integer.MAX_VALUE ? 0 : maxCrafteos;
+	}
+
 }

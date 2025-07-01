@@ -1,9 +1,9 @@
 package Items;
 
-//import Ingredientes.IngredienteIntermedio;
+import utils.ConstantesItems;
 
 public class CarneCocida extends ItemComun {
-    public CarneCocida(int cantidad) {
-        super("Carne Cocida", cantidad);
-    }
+	public CarneCocida(int cantidad) {
+		super(ConstantesItems.CARNE_COCIDA, cantidad);
+	}
 }

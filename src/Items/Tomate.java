@@ -2,10 +2,11 @@ package Items;
 
 import interfaces.Basico;
 import interfaces.Item;
+import utils.ConstantesItems;
 
 public class Tomate extends ItemComun implements Basico {
 	public Tomate(int cantidad) {
-		super("Tomate", cantidad);
+		super(ConstantesItems.TOMATE, cantidad);
 	}
 
 	@Override

@@ -2,7 +2,9 @@ package usuario;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,6 +21,8 @@ import Items.Queso;
 import Items.Tomate;
 import interfaces.Basico;
 import interfaces.Item;
+import recetas.Receta;
+import recetas.Recetario;
 
 public class Inventario {
 	private List<Item> items;
@@ -114,6 +118,51 @@ public class Inventario {
 		}
 		return 0;
 	}
+	public Boolean mostrarFaltantesParaCraftear(String nombreItem, Recetario recetario) {
+		Receta receta = recetario.getReceta(nombreItem);
+
+		if (receta == null) {
+			System.out.println("❌ No se encontró una receta para: " + nombreItem);
+			return false;
+		}
+
+		Map<String, Integer> faltantes = new HashMap<>();
+
+		for (Map.Entry<String, Integer> entry : receta.getIngredientes().entrySet()) {
+			String nombreIngrediente = entry.getKey();
+			int cantidadNecesaria = entry.getValue();
+
+			Item itemEnInventario = ((Inventario) items).buscarPorNombre(nombreIngrediente);
+
+			if (itemEnInventario == null) {
+				faltantes.put(nombreIngrediente, cantidadNecesaria);
+			} else {
+				int cantidadFaltante = cantidadNecesaria - itemEnInventario.getCantidad();
+				if (cantidadFaltante > 0) {
+					faltantes.put(nombreIngrediente, cantidadFaltante);
+				}
+			}
+		}
+
+		if (faltantes.isEmpty()) {
+			System.out.println("Tienes todos los ingredientes necesarios para fabricar " + nombreItem + ".");
+			return true;
+		} else {
+			System.out.println("Faltan los siguientes ingredientes para fabricar " + nombreItem + ":");
+			for (Map.Entry<String, Integer> entry : faltantes.entrySet()) {
+				System.out.println("- " + entry.getValue() + " x " + entry.getKey());
+			}
+			return false;
+		}
+	}
+	public Item fabricarCompleto(String nombre, Recetario recetario) {
+		if(mostrarFaltantesParaCraftear(nombre, recetario) == true) {
+			//Item itemCompleto = new 
+		}
+		return null;
+		
+	}
+	
 
 	private Item crearItemPorNombre(String nombre, int cantidad) {
 		switch (nombre) {

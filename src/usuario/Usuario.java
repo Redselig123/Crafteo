@@ -62,12 +62,22 @@ public class Usuario {
 		}
 	}
 
-	public void mostrarFaltantesParaCraftear(String nombreItem, Recetario recetario) {
+	public void fabricarCompleto(String nombreCompleto, Recetario recetario) {
+		Item item = inventario.fabricarCompleto(nombreCompleto, recetario);
+		if (item != null) {
+			System.out.println("Item completo creado: " + item.getNombre() + ": " + item.getCantidad());
+			historial.registrar(item.getNombre() + ":" + item.getCantidad());
+		} else {
+			System.out.println("No se pudo crear intermedio desde " + nombreCompleto);
+		}
+	}
+
+	public Boolean mostrarFaltantesParaCraftear(String nombreItem, Recetario recetario) {
 		Receta receta = recetario.getReceta(nombreItem);
 
 		if (receta == null) {
 			System.out.println("❌ No se encontró una receta para: " + nombreItem);
-			return;
+			return false;
 		}
 
 		Map<String, Integer> faltantes = new HashMap<>();
@@ -90,16 +100,18 @@ public class Usuario {
 
 		if (faltantes.isEmpty()) {
 			System.out.println("Tienes todos los ingredientes necesarios para fabricar " + nombreItem + ".");
+			return true;
 		} else {
 			System.out.println("Faltan los siguientes ingredientes para fabricar " + nombreItem + ":");
 			for (Map.Entry<String, Integer> entry : faltantes.entrySet()) {
 				System.out.println("- " + entry.getValue() + " x " + entry.getKey());
 			}
+			return false;
 		}
 	}
 
-	public void mostrarFaltantesdesdeCero(String nombreItem, Recetario recetario) {
-		Map<String, Integer> necesarios = recetario.getIngredientesBasicos(nombreItem);
+	public void mostrarFaltantesdesdeCero(String nombreItemComp, Recetario recetario) {
+		Map<String, Integer> necesarios = recetario.getIngredientesBasicos(nombreItemComp);
 		Map<String, Integer> faltantes = new HashMap<>();
 
 		for (Map.Entry<String, Integer> entry : necesarios.entrySet()) {
@@ -107,21 +119,23 @@ public class Usuario {
 			int necesariosCantidad = entry.getValue();
 			int enInventario = inventario.getCantidad(nombre);
 			if (enInventario < necesariosCantidad) {
-				faltantes.put(nombreItem, necesariosCantidad - enInventario);
+				faltantes.put(nombre, necesariosCantidad - enInventario);
 
 			}
 
 		}
 		if (faltantes.isEmpty()) {
 			System.out
-					.println("Tienes todos los ingredientes básicos necesarios para fabricar \"" + nombreItem + "\".");
+					.println("Tienes todos los ingredientes básicos necesarios para fabricar \"" + nombreItemComp + "\".");
 		} else {
-			System.out.println("❌ Te faltan los siguientes ingredientes básicos para fabricar \"" + nombreItem + "\":");
+			System.out.println("❌ Te faltan los siguientes ingredientes básicos para fabricar \"" + nombreItemComp + "\":");
 			for (Map.Entry<String, Integer> entry : faltantes.entrySet()) {
 				System.out.println("- " + entry.getValue() + " x " + entry.getKey());
 
 			}
 		}
 	}
+
+	
 
 }

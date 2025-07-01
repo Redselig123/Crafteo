@@ -1,10 +1,11 @@
 package itemCompleto;
 
 import Items.ItemComun;
+import utils.ConstantesItems;
 
 public class HamburguesaSimple extends ItemComun {
 
 	public HamburguesaSimple() {
-		super("Hamburguesa Simple", 1);
+		super(ConstantesItems.HAMBURGUESA_SIMPLE, 1);
 	}
 }

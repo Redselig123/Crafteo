@@ -1,7 +1,9 @@
 package Items;
 
+import utils.ConstantesItems;
+
 public class TomateLavado extends ItemComun {
     public TomateLavado(int cantidad) {
-        super("Tomate Lavado", cantidad);
+        super(ConstantesItems.TOMATE_LAVADO, cantidad);
     }
 }

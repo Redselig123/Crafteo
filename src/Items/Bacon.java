@@ -2,10 +2,12 @@ package Items;
 
 import interfaces.Basico;
 import interfaces.Item;
+import utils.ConstantesItems;
+
 
 public class Bacon extends ItemComun implements Basico{
 	public Bacon(int cantidad) {
-		super("Bacon", cantidad);
+		super(ConstantesItems.BACON, cantidad);
 	}
 
 	@Override
