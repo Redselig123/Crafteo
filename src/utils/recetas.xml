@@ -22,30 +22,35 @@
 
     <!-- Recetas de ítems completos -->
     <receta nombre="Hamburguesa Simple">
-        <ingrediente nombre="Pan" cantidad="2"/>
+        <ingrediente nombre="Pan" cantidad="1"/>
+          <ingrediente nombre="Queso" cantidad="2"/>
         <ingrediente nombre="Carne Cocida" cantidad="1"/>
     </receta>
 
     <receta nombre="Hamburguesa con Bacon">
-        <ingrediente nombre="Pan" cantidad="2"/>
+        <ingrediente nombre="Pan" cantidad="1"/>
+          <ingrediente nombre="Queso" cantidad="2"/>
         <ingrediente nombre="Carne Cocida" cantidad="1"/>
         <ingrediente nombre="Bacon Cocido" cantidad="5"/>
     </receta>
 
     <receta nombre="Hamburguesa con Lechuga y Tomate">
-        <ingrediente nombre="Pan" cantidad="2"/>
+        <ingrediente nombre="Pan" cantidad="1"/>
+        <ingrediente nombre="Queso" cantidad="2"/>
         <ingrediente nombre="Carne Cocida" cantidad="1"/>
         <ingrediente nombre="Lechuga Lavada" cantidad="1"/>
         <ingrediente nombre="Tomate Lavado" cantidad="1"/>
     </receta>
 
     <receta nombre="Hamburguesa Doble">
-        <ingrediente nombre="Pan" cantidad="2"/>
+        <ingrediente nombre="Pan" cantidad="1"/>
+          <ingrediente nombre="Queso" cantidad="3"/>
         <ingrediente nombre="Carne Cocida" cantidad="2"/>
     </receta>
 
     <receta nombre="Hamburguesa Triple">
-        <ingrediente nombre="Pan" cantidad="3"/>
+        <ingrediente nombre="Pan" cantidad="2"/>
+          <ingrediente nombre="Queso" cantidad="4"/>
         <ingrediente nombre="Carne Cocida" cantidad="3"/>
 
     </receta>

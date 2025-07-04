@@ -10,6 +10,7 @@ import recetas.Recetario;
 import usuario.Inventario;
 import usuario.Usuario;
 import utils.ConstantesItems;
+import utils.TiempoCrafteo;
 
 public class Menu {
 	private Usuario usuario;
@@ -39,7 +40,7 @@ public class Menu {
 		String nombreUsuario = scanner.nextLine();
 
 		usuario = new Usuario(nombreUsuario);
-
+		// try catch
 		recetario.cargarRecetas(this.rutaRecetas);
 		usuario.cargarInventario(this.rutaInventario);
 		System.out.println("Bienvenido, " + usuario.getNombre() + "!");
@@ -226,6 +227,7 @@ public class Menu {
 				System.out.print("¿Cuántos querés crear?: ");
 				int cantidad = Integer.parseInt(scanner.nextLine());
 				usuario.crearIntermedio(nombre, cantidad);
+
 			} else {
 				System.out.println("Opción inválida.");
 			}

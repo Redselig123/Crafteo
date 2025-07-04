@@ -3,11 +3,12 @@ package Items;
 import interfaces.Basico;
 import interfaces.Item;
 import utils.ConstantesItems;
+import utils.ConstantesTiempo;
 
 
 public class Harina extends ItemComun implements Basico {
 	public Harina(int cantidad) {
-		super(ConstantesItems.HARINA, cantidad);
+		super(ConstantesItems.HARINA, cantidad, ConstantesTiempo.TIEMPO_HARINA);
 	}
 
 	@Override

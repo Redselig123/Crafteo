@@ -3,11 +3,12 @@ package Items;
 import interfaces.Basico;
 import interfaces.Item;
 import utils.ConstantesItems;
+import utils.ConstantesTiempo;
 
 
 public class Bacon extends ItemComun implements Basico{
 	public Bacon(int cantidad) {
-		super(ConstantesItems.BACON, cantidad);
+		super(ConstantesItems.BACON, cantidad, ConstantesTiempo.TIEMPO_BACON);
 	}
 
 	@Override

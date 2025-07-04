@@ -6,12 +6,14 @@ public abstract class ItemComun implements Item {
 	protected String nombre;
 	protected int cantidad;
 	protected int tiendoDeCrafteo;
-	protected int limiteMaximo = 20;
+	protected int limiteMaximo = 20;//ponerlo en el constructor y crear ConstantesCantidadMaxima por item... uff
+	protected int tiempoCrafteo;
 
-	public ItemComun(String nombre, int cantidad) {
+	public ItemComun(String nombre, int cantidad, int tiempo) {
 		this.tiendoDeCrafteo = 1;
 		this.nombre = nombre;
 		this.cantidad = cantidad;
+		this.tiempoCrafteo = tiempo;
 	}
 
 	@Override
@@ -23,7 +25,10 @@ public abstract class ItemComun implements Item {
 	public int getCantidad() {
 		return cantidad;
 	}
-
+	@Override
+	public int getTiempoCrafteo() {
+		return this.tiempoCrafteo;
+	}
 	@Override
 	public void sumarCantidad(int cantidad) {
 		if (this.cantidad + cantidad > limiteMaximo) {

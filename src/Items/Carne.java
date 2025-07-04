@@ -5,12 +5,13 @@ package Items;
 import interfaces.Basico;
 import interfaces.Item;
 import utils.ConstantesItems;
+import utils.ConstantesTiempo;
 
 
 public class Carne extends ItemComun implements Basico {
 
 	public Carne(int cantidad) {
-		super(ConstantesItems.CARNE, cantidad);
+		super(ConstantesItems.CARNE, cantidad, ConstantesTiempo.TIEMPO_CARNE);
 	}
 
 	@Override

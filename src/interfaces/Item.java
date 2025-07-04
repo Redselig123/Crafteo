@@ -5,4 +5,5 @@ public interface Item {
     int getCantidad();
     void sumarCantidad(int cantidad);
     boolean restarCantidad(int cantidad);
+    int getTiempoCrafteo();
 }

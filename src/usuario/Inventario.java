@@ -18,7 +18,7 @@ import Items.Carne;
 import Items.Harina;
 import Items.ItemCompletoFactory;
 import Items.Lechuga;
-
+import Items.Queso;
 import Items.Tomate;
 import interfaces.Basico;
 import interfaces.Item;
@@ -102,7 +102,6 @@ public class Inventario {
 				Basico basico = (Basico) item;
 				Item intermedio = basico.crearIntermedio(cantidad); // Esto ya llama a restarCantidad internamente
 				if (intermedio != null) {
-					//agregarItem(intermedio); // Agregamos el nuevo item intermedio
 					return intermedio;
 				}
 				return null;
@@ -194,6 +193,8 @@ public class Inventario {
 			return new Lechuga(cantidad);
 		case ConstantesItems.TOMATE:
 			return new Tomate(cantidad);
+		case ConstantesItems.QUESO:
+			return new Queso(cantidad);
 		default:
 			return null;
 		}

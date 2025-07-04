@@ -7,16 +7,19 @@ import Items.ItemCompletoFactory;
 import interfaces.Item;
 import recetas.Receta;
 import recetas.Recetario;
+import utils.TiempoCrafteo;
 
 public class Usuario {
 	private String nombre;
 	private Inventario inventario;
 	private Historial historial;
+	private TiempoCrafteo tiempo;
 
 	public Usuario(String nombre) {
 		this.nombre = nombre;
 		this.inventario = new Inventario();
 		this.historial = new Historial();
+		this.tiempo = new TiempoCrafteo();
 	}
 
 	public String getNombre() {
@@ -56,9 +59,11 @@ public class Usuario {
 	public void crearIntermedio(String nombreBasico, int cantidad) {
 		Item item = inventario.fabricarIntermedio(nombreBasico, cantidad);
 		if (item != null) {
-			System.out.println("Intermedio creado: " + item.getNombre() + ": " + item.getCantidad());
 			this.agregarItem(item);
-			//historial.registrar(item.getNombre() + ":" + item.getCantidad());
+			tiempo.sumar(item.getTiempoCrafteo() * cantidad);
+			System.out.println("✅ Intermedio creado: " + item.getNombre() + ": " + item.getCantidad() + " en: "
+					+ tiempo.mostrarTiempo());
+			tiempo.reiniciar();
 		} else {
 			System.out.println("No se pudo crear intermedio desde " + nombreBasico);
 		}
@@ -93,8 +98,13 @@ public class Usuario {
 		}
 		Item nuevoItem = ItemCompletoFactory.crear(nombreCompleto, 1);
 
-		//agregarItem(nuevoItem);
-		this.agregarItem(nuevoItem);
+		if (nuevoItem != null) {
+	        this.agregarItem(nuevoItem);
+	        tiempo.sumar(nuevoItem.getTiempoCrafteo());
+	        System.out.println("✅ Completo creado: " + nuevoItem.getNombre() + ": " + nuevoItem.getCantidad() +
+	                " en: " + tiempo.mostrarTiempo());
+	        tiempo.reiniciar(); 
+	    }
 		return nuevoItem;
 	}
 
