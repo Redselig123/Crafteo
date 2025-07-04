@@ -15,6 +15,7 @@ public class Usuario {
 	private Inventario inventario;
 	private Historial historial;
 	private TiempoCrafteo tiempo;
+	private int turno = 1;
 
 
 	public Usuario(String nombre) {
@@ -30,8 +31,10 @@ public class Usuario {
 
 	public void agregarItem(Item item) {
 		inventario.agregarItem(item);
-		historial.registrar(item.getNombre() + ":" + item.getCantidad());
+		String registro = "Turno " + turno + " - " + item.getNombre() + ": " + item.getCantidad();
+		historial.registrar(registro);
 		System.out.println("Se agregó " + item.getNombre() + ": " + item.getCantidad());
+		turno++;
 	}
 
 	public void mostrarHistorial() {
@@ -190,5 +193,6 @@ public class Usuario {
 			}
 		}
 	}
+	
 
 }

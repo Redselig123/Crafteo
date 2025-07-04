@@ -34,38 +34,6 @@ public class Historial {
 		}
 	}
 
-	public void guardarComoXML(String rutaArchivo) {
-	    try {
-	        // Crear documento XML
-	        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-	        DocumentBuilder builder = factory.newDocumentBuilder();
-	        Document doc = builder.newDocument();
-
-	        // Elemento raíz <historial>
-	        Element root = doc.createElement("historial");
-	        doc.appendChild(root);
-
-	        // Agregar cada entrada como <entrada>
-	        for (String entrada : historial) {
-	            Element item = doc.createElement("entrada");
-	            item.setTextContent(entrada);
-	            root.appendChild(item);
-	        }
-
-	        // Guardar el XML en archivo
-	        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-	        Transformer transformer = transformerFactory.newTransformer();
-	        transformer.setOutputProperty(OutputKeys.INDENT, "yes"); // formato legible
-	        DOMSource source = new DOMSource(doc);
-	        StreamResult result = new StreamResult(new File(rutaArchivo));
-	        transformer.transform(source, result);
-
-	        System.out.println("✅ Historial guardado en: " + rutaArchivo);
-	    } catch (Exception e) {
-	        System.out.println("❌ Error al guardar historial en XML: " + e.getMessage());
-	        e.printStackTrace();
-	    }
-	}
 
 
 }

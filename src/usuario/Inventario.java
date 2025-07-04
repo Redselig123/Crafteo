@@ -8,6 +8,11 @@ import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -181,6 +186,36 @@ public class Inventario {
 
 		return null;
 	}
+	public void guardarInventarioComoXML(String rutaArchivo) {
+	    try {
+	        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder builder = factory.newDocumentBuilder();
+	        Document doc = builder.newDocument();
+
+	        Element root = doc.createElement("inventario");
+	        doc.appendChild(root);
+
+	        for (Item item : this.items) {
+	            Element itemElem = doc.createElement("item");
+	            itemElem.setAttribute("nombre", item.getNombre());
+	            itemElem.setAttribute("cantidad", String.valueOf(item.getCantidad()));
+	            root.appendChild(itemElem);
+	        }
+
+	        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+	        Transformer transformer = transformerFactory.newTransformer();
+	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+	        DOMSource source = new DOMSource(doc);
+	        StreamResult result = new StreamResult(new File(rutaArchivo));
+	        transformer.transform(source, result);
+
+	        System.out.println("✅ Inventario final guardado en: " + rutaArchivo);
+	    } catch (Exception e) {
+	        System.out.println("❌ Error al guardar inventario final: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	}
+
 
 	private Item crearItemPorNombre(String nombre, int cantidad) {
 		switch (nombre) {

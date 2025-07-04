@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <historial>
-    <entrada>Pan:1</entrada>
-    <entrada>Lechuga Lavada:2</entrada>
-    <entrada>Tomate Lavado:1</entrada>
-    <entrada>Carne Cocida:2</entrada>
-    <entrada>Hamburguesa con Lechuga y Tomate:1</entrada>
+    <entrada>Turno 1 - Tomate Lavado: 2</entrada>
+    <entrada>Turno 2 - Pan: 3</entrada>
+    <entrada>Turno 3 - Carne Cocida: 3</entrada>
 </historial>

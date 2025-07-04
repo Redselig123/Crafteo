@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<inventario>
+    <item cantidad="9" nombre="Harina"/>
+    <item cantidad="18" nombre="Queso"/>
+    <item cantidad="9" nombre="Carne"/>
+    <item cantidad="10" nombre="Bacon"/>
+    <item cantidad="10" nombre="Lechuga"/>
+    <item cantidad="10" nombre="Tomate"/>
+    <item cantidad="2" nombre="Catalizador de Cocción"/>
+    <item cantidad="3" nombre="Catalizador de Horneado"/>
+    <item cantidad="3" nombre="Catalizador de Lavado"/>
+    <item cantidad="0" nombre="Pan"/>
+    <item cantidad="0" nombre="Carne Cocida"/>
+    <item cantidad="1" nombre="Hamburguesa Simple"/>
+</inventario>
