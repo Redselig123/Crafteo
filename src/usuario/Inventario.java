@@ -24,6 +24,7 @@ import interfaces.Basico;
 import interfaces.Item;
 import recetas.Receta;
 import recetas.Recetario;
+import utils.Catalizador;
 import utils.ConstantesItems;
 
 public class Inventario {
@@ -195,6 +196,12 @@ public class Inventario {
 			return new Tomate(cantidad);
 		case ConstantesItems.QUESO:
 			return new Queso(cantidad);
+		case "Catalizador de Cocción":
+			return new Catalizador(nombre, Catalizador.Tipo.COCCION, cantidad);
+		case "Catalizador de Horneado":
+			return new Catalizador(nombre, Catalizador.Tipo.HORNEADO, cantidad);
+		case "Catalizador de Lavado":
+			return new Catalizador(nombre, Catalizador.Tipo.LAVADO, cantidad);
 		default:
 			return null;
 		}

@@ -19,5 +19,7 @@ public class ConstantesTiempo {
 	public static final int TIEMPO_HAMBURGUESA_TRIPLE = 90;
 	public static final int TIEMPO_HAMBURGUESA_CON_BACON = 60;
 	public static final int TIEMPO_HAMBURGUESA_LECHUGA_Y_TOMATE = 90;
+	
+	public static final int TIEMPO_CATALIZADOR = 5;
 
 }

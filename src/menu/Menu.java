@@ -9,8 +9,8 @@ import recetas.Receta;
 import recetas.Recetario;
 import usuario.Inventario;
 import usuario.Usuario;
+import utils.Catalizador;
 import utils.ConstantesItems;
-import utils.TiempoCrafteo;
 
 public class Menu {
 	private Usuario usuario;
@@ -204,7 +204,8 @@ public class Menu {
 
 			if (opcion >= 1 && opcion <= itemsCompl.size()) {
 				String nombre = itemsCompl.get(opcion - 1);
-				usuario.fabricarCompleto(nombre, recetario);
+				Catalizador catalizador = seleccionarCatalizador();
+				usuario.fabricarCompleto(nombre, recetario, catalizador);
 			} else {
 				System.out.println("Opción inválida.");
 			}
@@ -212,6 +213,52 @@ public class Menu {
 		} catch (NumberFormatException e) {
 			System.out.println("Entrada inválida. Debe ser un número.");
 		}
+	}
+
+	private Catalizador seleccionarCatalizador() {
+		System.out.println(
+				"¿Deseas usar un catalizador? solo se podra reducir a la mitad la cantidad necesaria de un item segun el tipo y no menos de 1 en cantidad final a usar (s/n): ");
+		String usar = scanner.nextLine();
+
+		if (usar.equalsIgnoreCase("s")) {
+			System.out.println("Selecciona un catalizador:");
+			System.out.println("1. Cocción");
+			System.out.println("2. Horneado");
+			System.out.println("3. Lavado");
+			try {
+				int opcion = Integer.parseInt(scanner.nextLine());
+				Catalizador.Tipo tipoSeleccionado = switch (opcion) {
+				case 1 -> Catalizador.Tipo.COCCION;
+				case 2 -> Catalizador.Tipo.HORNEADO;
+				case 3 -> Catalizador.Tipo.LAVADO;
+				default -> null;
+				};
+
+				if (tipoSeleccionado == null) {
+					System.out.println("Opción inválida.");
+					return null;
+				}
+
+				// Buscar en el inventario el catalizador correspondiente
+				for (Item item : usuario.getInventario().getItems()) {
+					if (item instanceof Catalizador catalizador && catalizador.getTipo() == tipoSeleccionado) {
+						if (catalizador.getCantidad() > 0) {
+							catalizador.restarCantidad(1); // Se usa 1 catalizador
+							return catalizador;
+						} else {
+							System.out.println("No te queda ese tipo de catalizador.");
+							return null;
+						}
+					}
+				}
+
+				System.out.println("❌ No tenés ese tipo de catalizador en el inventario.");
+			} catch (NumberFormatException e) {
+				System.out.println("Entrada inválida.");
+			}
+		}
+
+		return null;
 	}
 
 	private void creaftearIntermedio() {

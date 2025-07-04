@@ -5,5 +5,10 @@
     <item nombre="Bacon" cantidad="10"/>
     <item nombre="Lechuga" cantidad="10"/>
     <item nombre="Tomate" cantidad="10"/>
+    
+        <!-- Catalizadores -->
+    <item nombre="Catalizador de Cocción" cantidad="3"/>
+    <item nombre="Catalizador de Horneado" cantidad="3"/>
+    <item nombre="Catalizador de Lavado" cantidad="3"/>
 </inventario>
 

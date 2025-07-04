@@ -38,8 +38,8 @@
         <ingrediente nombre="Pan" cantidad="1"/>
         <ingrediente nombre="Queso" cantidad="2"/>
         <ingrediente nombre="Carne Cocida" cantidad="1"/>
-        <ingrediente nombre="Lechuga Lavada" cantidad="1"/>
-        <ingrediente nombre="Tomate Lavado" cantidad="1"/>
+        <ingrediente nombre="Lechuga Lavada" cantidad="2"/>
+        <ingrediente nombre="Tomate Lavado" cantidad="2"/>
     </receta>
 
     <receta nombre="Hamburguesa Doble">
