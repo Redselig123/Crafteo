@@ -58,7 +58,7 @@ public class Menu {
 	private void buclePrincipal() {
 		int opcion = -1;
 
-		while (opcion != 10) {
+		while (opcion != 11) {
 			mostrarMenu();
 			try {
 				opcion = Integer.parseInt(scanner.nextLine());
@@ -84,7 +84,8 @@ public class Menu {
 		System.out.println("7. Craftear objeto completo");
 		System.out.println("8. Ver ingredientes faltantes (primer nivel)");
 		System.out.println("9. Ver qué me falta para craftear un objeto desde cero");
-		System.out.println("10. Salir");
+		System.out.println("10. Ver árbol de crafteo de un objeto");
+		System.out.println("11. Salir");
 
 		System.out.print("Opción: ");
 
@@ -145,6 +146,9 @@ public class Menu {
 			mostrarFaltantesDeSegundoNivel();
 			break;
 		case 10:
+			verArbolDeCrafteo();
+
+		case 11:
 			break;
 
 		default:
@@ -318,5 +322,23 @@ public class Menu {
 		}
 		return maxCrafteos == Integer.MAX_VALUE ? 0 : maxCrafteos;
 	}
+	private void verArbolDeCrafteo() {
+	    System.out.println("Selecciona el objeto completo para ver su árbol de crafteo:");
+	    mostrarObjetos(itemsCompl); // Asumo que tenés una lista con los nombres
+
+	    try {
+	        int opcion = Integer.parseInt(scanner.nextLine());
+
+	        if (opcion >= 1 && opcion <= itemsCompl.size()) {
+	            String nombre = itemsCompl.get(opcion - 1);
+	            recetario.verArbolCrafteo(nombre); // Llama al método de Recetario que lo imprime
+	        } else {
+	            System.out.println("Opción inválida.");
+	        }
+	    } catch (NumberFormatException e) {
+	        System.out.println("Entrada inválida. Debe ser un número.");
+	    }
+	}
+
 
 }

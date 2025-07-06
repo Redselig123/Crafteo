@@ -115,4 +115,26 @@ public class Recetario {
 		}
 	}
 
+	private void mostrarArbolCrafteo(String nombreItem, int nivel) {
+		String indentacion = "  ".repeat(nivel); // 2 espacios por nivel
+		System.out.println(indentacion + "- " + nombreItem);
+
+		Receta receta = getReceta(nombreItem);
+		if (receta == null)
+			return; // básico, no se descompone más
+
+		for (Map.Entry<String, Integer> entry : receta.getIngredientes().entrySet()) {
+			String ingrediente = entry.getKey();
+			int cantidad = entry.getValue();
+			for (int i = 0; i < cantidad; i++) {
+				mostrarArbolCrafteo(ingrediente, nivel + 1);
+			}
+		}
+	}
+
+	public void verArbolCrafteo(String nombreItem) {
+		System.out.println("Árbol de crafteo para: " + nombreItem);
+		mostrarArbolCrafteo(nombreItem, 0);
+	}
+
 }
