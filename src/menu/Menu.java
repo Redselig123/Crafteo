@@ -147,7 +147,6 @@ public class Menu {
 			break;
 		case 10:
 			verArbolDeCrafteo();
-
 		case 11:
 			break;
 
@@ -265,7 +264,7 @@ public class Menu {
 		return null;
 	}
 
-	private void creaftearIntermedio() {
+	public void creaftearIntermedio() {
 		System.out.println("Selecciona el objeto intermedio a craftear:");
 		mostrarObjetos(itemsI);
 
@@ -322,23 +321,28 @@ public class Menu {
 		}
 		return maxCrafteos == Integer.MAX_VALUE ? 0 : maxCrafteos;
 	}
+
 	private void verArbolDeCrafteo() {
-	    System.out.println("Selecciona el objeto completo para ver su árbol de crafteo:");
-	    mostrarObjetos(itemsCompl); // Asumo que tenés una lista con los nombres
+		System.out.println("Selecciona el objeto completo para ver su árbol de crafteo:");
+		mostrarObjetos(itemsCompl); // Asumo que tenés una lista con los nombres
 
-	    try {
-	        int opcion = Integer.parseInt(scanner.nextLine());
+		try {
+			int opcion = Integer.parseInt(scanner.nextLine());
 
-	        if (opcion >= 1 && opcion <= itemsCompl.size()) {
-	            String nombre = itemsCompl.get(opcion - 1);
-	            recetario.verArbolCrafteo(nombre); // Llama al método de Recetario que lo imprime
-	        } else {
-	            System.out.println("Opción inválida.");
-	        }
-	    } catch (NumberFormatException e) {
-	        System.out.println("Entrada inválida. Debe ser un número.");
-	    }
+			if (opcion >= 1 && opcion <= itemsCompl.size()) {
+				String nombre = itemsCompl.get(opcion - 1);
+				recetario.verArbolCrafteo(nombre); // Llama al método de Recetario que lo imprime
+			} else {
+				System.out.println("Opción inválida.");
+			}
+		} catch (NumberFormatException e) {
+			System.out.println("Entrada inválida. Debe ser un número.");
+		}
 	}
 
+	public void setScanner(Scanner scanner2) {
+		this.scanner = scanner;
+
+	}
 
 }

@@ -21,7 +21,6 @@ import org.w3c.dom.NodeList;
 import Items.Bacon;
 import Items.Carne;
 import Items.Harina;
-import Items.ItemCompletoFactory;
 import Items.Lechuga;
 import Items.Queso;
 import Items.Tomate;
@@ -164,7 +163,7 @@ public class Inventario {
 		}
 	}
 
-	public Item fabricarCompleto(String nombre, Recetario recetario) {
+	/*public Item fabricarCompleto(String nombre, Recetario recetario) {
 		if (mostrarFaltantesParaCraftear(nombre, recetario)) {
 			Receta receta = recetario.getReceta(nombre);
 			if (receta == null)
@@ -184,7 +183,7 @@ public class Inventario {
 		}
 
 		return null;
-	}
+	}*/
 
 	public void guardarInventarioComoXML(String rutaArchivo) {
 		try {
@@ -218,6 +217,7 @@ public class Inventario {
 
 	private Item crearItemPorNombre(String nombre, int cantidad) {
 		switch (nombre) {
+		// mandar a factory
 		case ConstantesItems.HARINA:
 			return new Harina(cantidad);
 		case ConstantesItems.CARNE:

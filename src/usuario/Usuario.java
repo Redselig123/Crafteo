@@ -10,13 +10,13 @@ import recetas.Recetario;
 import utils.Catalizador;
 import utils.TiempoCrafteo;
 import static utils.CatalizadorUtils.INGREDIENTES_POR_TIPO;
+
 public class Usuario {
 	private String nombre;
 	private Inventario inventario;
 	private Historial historial;
 	private TiempoCrafteo tiempo;
 	private int turno = 1;
-
 
 	public Usuario(String nombre) {
 		this.nombre = nombre;
@@ -74,7 +74,7 @@ public class Usuario {
 		}
 	}
 
-	public Item fabricarCompleto(String nombreCompleto, Recetario recetario,  Catalizador catalizador) {
+	public Item fabricarCompleto(String nombreCompleto, Recetario recetario, Catalizador catalizador) {
 		Receta receta = recetario.getReceta(nombreCompleto);
 
 		if (receta == null) {
@@ -84,29 +84,30 @@ public class Usuario {
 		Map<String, Integer> ingredientesReales = new HashMap<>();
 
 		// Aplicar catalizador si corresponde
-	    for (Map.Entry<String, Integer> entry : receta.getIngredientes().entrySet()) {
-	        String nombreIngrediente = entry.getKey();
-	        int cantidad = entry.getValue();
+		for (Map.Entry<String, Integer> entry : receta.getIngredientes().entrySet()) {
+			String nombreIngrediente = entry.getKey();
+			int cantidad = entry.getValue();
 
-	        if (catalizador != null && INGREDIENTES_POR_TIPO.get(catalizador.getTipo()).contains(nombreIngrediente)) {
-	            cantidad = Math.max(1, (int) Math.ceil(cantidad / 2.0)); // nunca menos de 1
-	            tiempo.sumar(catalizador.getTiempoCrafteo());
-	            System.out.println("🧪 Catalizador aplicado: Se requiere solo " + cantidad + " de " + nombreIngrediente);
-	        }
+			if (catalizador != null && INGREDIENTES_POR_TIPO.get(catalizador.getTipo()).contains(nombreIngrediente)) {
+				cantidad = Math.max(1, (int) Math.ceil(cantidad / 2.0)); // nunca menos de 1
+				tiempo.sumar(catalizador.getTiempoCrafteo());
+				System.out
+						.println("🧪 Catalizador aplicado: Se requiere solo " + cantidad + " de " + nombreIngrediente);
+			}
 
-	        ingredientesReales.put(nombreIngrediente, cantidad);
-	    }
+			ingredientesReales.put(nombreIngrediente, cantidad);
+		}
 
 		// Paso 1: Verificar que tenga todos los ingredientes
 		for (Map.Entry<String, Integer> entry : ingredientesReales.entrySet()) {
-		    String nombreIngrediente = entry.getKey();
-		    int cantidadNecesaria = entry.getValue();
+			String nombreIngrediente = entry.getKey();
+			int cantidadNecesaria = entry.getValue();
 
-		    Item itemEnInventario = inventario.buscarPorNombre(nombreIngrediente);
-		    if (itemEnInventario == null || itemEnInventario.getCantidad() < cantidadNecesaria) {
-		        System.out.println("❌ No tienes suficiente de: " + nombreIngrediente);
-		        return null;
-		    }
+			Item itemEnInventario = inventario.buscarPorNombre(nombreIngrediente);
+			if (itemEnInventario == null || itemEnInventario.getCantidad() < cantidadNecesaria) {
+				System.out.println("❌ No tienes suficiente de: " + nombreIngrediente);
+				return null;
+			}
 		}
 		// Paso 2: Restar del inventario
 		for (Map.Entry<String, Integer> entry : ingredientesReales.entrySet()) {
@@ -193,6 +194,5 @@ public class Usuario {
 			}
 		}
 	}
-	
 
 }

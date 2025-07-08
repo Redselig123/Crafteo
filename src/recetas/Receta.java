@@ -15,7 +15,7 @@ public class Receta {
 	public void agregarIngrediente(String nombreIngrediente, int cantidad) {
 		ingredientes.put(nombreIngrediente, cantidad);
 	}
- 
+
 	public Map<String, Integer> getIngredientes() {
 		return ingredientes;
 	}
